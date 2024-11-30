@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../components/Header";
 import ActivitiesList from "../components/ActivitiesList";
 
 const Home = () => {
@@ -12,8 +11,8 @@ const Home = () => {
         axios
             .get("http://localhost:5000/api/loisirs")
             .then((response) => {
-                console.log(response.data); // Vérifiez que les données sont bien reçues
-                setActivities(response.data.results || []); // Utilisez 'results' comme source d'activités
+                console.log(response.data); 
+                setActivities(response.data.results || []);
                 setLoading(false);
             })
             .catch((err) => {

@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 
-const API_URL = "https://data.rennesmetropole.fr/api/explore/v2.1/catalog/datasets/loisirs-az-4bis/records?limit=100";
+const API_URL = "https://data.rennesmetropole.fr/explore/embed/dataset/loisirs-az-4bis/table/";
 
 //Affichage des activites
 app.get("/api/loisirs", async (req, res) => {
