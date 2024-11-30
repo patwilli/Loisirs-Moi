@@ -2,14 +2,20 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import MonCompte from "./pages/MonCompte";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
     return (
         <Router>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/mon-compte" element={<MonCompte />} />
-            </Routes>
+            <div>
+                <Header />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/mon-compte" element={<MonCompte />} />
+                </Routes>
+                <Footer />
+            </div>
         </Router>
     );
 }
