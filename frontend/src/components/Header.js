@@ -11,6 +11,7 @@ const Header = () => {
             </p>
             <nav>
                 <Link to="/mon-compte">Mon Compte</Link>
+                <Link to="/about">À propos</Link>
             </nav>
         </header>
     );
