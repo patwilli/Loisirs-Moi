@@ -42,7 +42,7 @@ const InteractiveMap = ({ activities }) => {
         return mapping[commune] || null;
     };
 
-    return <div id="map" style={{ height: "700px", width: "100%" }}></div>;
+    return <div id="map" style={{ height: "600px", width: "100%" }}></div>;
 };
 
 export default InteractiveMap;
