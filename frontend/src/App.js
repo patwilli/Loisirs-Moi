@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import MonCompte from "./pages/MonCompte";
+import Activities from "./pages/Activities";
 import ActivityDetails from "./pages/ActivityDetails";
 import About from "./pages/About";
 import InteractiveMapPage from "./pages/InteractiveMapPage";
@@ -16,7 +16,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/Accueil" element={<Home />} />
-                    <Route path="/Loisirs" element={<Home />} />
+                    <Route path="/Loisirs" element={<Activities />} />
                     <Route path="/activities/:uniqueId" element={<ActivityDetails />} />
                     <Route path="/Cartes-des-loisirs" element={<InteractiveMapPage />} />
                     <Route path="/Mes-favoris" element={<About />} />
