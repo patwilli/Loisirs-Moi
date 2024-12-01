@@ -61,7 +61,7 @@ const styles = {
     title: {
         fontSize: "1.2rem",
         marginBottom: "10px",
-        color: "#ff9800",
+        color: "#ffbd59",
     },
     text: {
         fontSize: "0.9rem",
@@ -72,7 +72,7 @@ const styles = {
         flexDirection: "column",
     },
     link: {
-        color: "#ff9800",
+        color: "#ffbd59",
         textDecoration: "none",
         marginBottom: "5px",
     },

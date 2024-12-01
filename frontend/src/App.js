@@ -15,10 +15,13 @@ function App() {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/Accueil" element={<Home />} />
+                    <Route path="/Loisirs" element={<Home />} />
                     <Route path="/activities/:uniqueId" element={<ActivityDetails />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/mon-compte" element={<MonCompte />} />
-                    <Route path="/map" element={<InteractiveMapPage />} />
+                    <Route path="/Cartes-des-loisirs" element={<InteractiveMapPage />} />
+                    <Route path="/Mes-favoris" element={<About />} />
+                    <Route path="/A-propos" element={<About />} />
+                    <Route path="/Recherche" element={<About />} />
                 </Routes>
                 <Footer />
             </div>
