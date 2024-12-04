@@ -26,7 +26,7 @@ const About = () => {
             <div style={styles.contact}>
                 <h2 style={styles.subtitle}>Contactez-nous</h2>
                 <p style={styles.paragraph}>
-                    Si vous avez des questions, n'hésitez pas à nous contacter à :{" "}
+                    Si vous avez des questions, n'hésitez pas à nous contacter à :
                     <a href="mailto:contact@notreplateforme.com" style={styles.link}>
                         contact@notreplateforme.com
                     </a>

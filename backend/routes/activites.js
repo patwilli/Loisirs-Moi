@@ -1,6 +1,6 @@
 const express = require('express');
 const { Op } = require('sequelize');
-const { Activite } = require('../models'); // Import du modèle Sequelize
+const { Activite } = require('../models'); 
 
 const router = express.Router();
 
@@ -35,7 +35,6 @@ router.get('/search', async (req, res) => {
     try {
       const { activite, commune, niveau, age } = req.query;
   
-      // Construire les critères dynamiquement
       const where = {};
       if (activite) where.activite = activite;
       if (commune) where.commune = commune;
@@ -58,7 +57,6 @@ router.get('/search', async (req, res) => {
   });
 
 //Route pour les thématiques (activite)
-
 router.get('/options/activites', async (req, res) => {
   try {
     const activites = await Activite.findAll({
@@ -67,9 +65,8 @@ router.get('/options/activites', async (req, res) => {
       where: { activite: { [Op.ne]: null } },
     });
 
-    // Transformation des résultats pour inclure 'id' et 'name'
     const activiteOptions = activites.map((a, index) => ({
-      id: index + 1,  // ou un autre identifiant unique si nécessaire
+      id: index + 1, 
       name: a.activite
     }));
 
@@ -91,9 +88,8 @@ router.get('/options/communes', async (req, res) => {
       where: { commune: { [Op.ne]: null } },
     });
 
-    // Transformation des résultats pour inclure 'id' et 'name'
     const communeOptions = communes.map((c, index) => ({
-      id: index + 1,  // ou un autre identifiant unique si nécessaire
+      id: index + 1,  
       name: c.commune
     }));
 
@@ -115,9 +111,8 @@ router.get('/options/niveaux', async (req, res) => {
       where: { niveau: { [Op.ne]: null } },
     });
 
-    // Transformation des résultats pour inclure 'id' et 'name'
     const niveauOptions = niveaux.map((n, index) => ({
-      id: index + 1,  // ou un autre identifiant unique si nécessaire
+      id: index + 1,  
       name: n.niveau
     }));
 
@@ -139,9 +134,8 @@ router.get('/options/ages', async (req, res) => {
       where: { age: { [Op.ne]: null } },
     });
 
-    // Transformation des résultats pour inclure 'id' et 'name'
     const ageOptions = ages.map((a, index) => ({
-      id: index + 1,  // ou un autre identifiant unique si nécessaire
+      id: index + 1, 
       name: a.age
     }));
 

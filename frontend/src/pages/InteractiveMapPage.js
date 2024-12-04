@@ -10,7 +10,7 @@ const InteractiveMapPage = () => {
         // Récupérer les activités depuis l'API
         const fetchActivities = async () => {
             try {
-                const response = await fetch("http://localhost:5000/api/activites"); // Remplacez par l'URL réelle
+                const response = await fetch("http://localhost:5000/api/activites"); 
                 if (!response.ok) throw new Error("Erreur lors de la récupération des données");
                 const data = await response.json();
                 setActivities(data);

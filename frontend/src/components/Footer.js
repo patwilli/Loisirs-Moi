@@ -13,13 +13,13 @@ const Footer = () => {
                 <div style={styles.section}>
                     <h4 style={styles.title}>Suivez-nous</h4>
                     <div style={styles.socialLinks}>
-                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" style={styles.link}>
+                        <a href="https://www.facebook.com/search/top?q=rennes%20metropole" target="_blank" rel="noopener noreferrer" style={styles.link}>
                             Facebook
                         </a>
                         <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" style={styles.link}>
                             Twitter
                         </a>
-                        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" style={styles.link}>
+                        <a href="https://www.instagram.com/rennesvilleetmetropole/" target="_blank" rel="noopener noreferrer" style={styles.link}>
                             Instagram
                         </a>
                     </div>

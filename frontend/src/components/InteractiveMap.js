@@ -2,33 +2,33 @@ import React, { useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-// Définir une icône personnalisée pour les marqueurs (facultatif)
+// Définir une icône personnalisée pour les marqueurs
 const customIcon = new L.Icon({
-    iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png", // Remplacez l'URL si vous avez votre propre icône
+    iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
     iconSize: [25, 41], // Taille de l'icône
     iconAnchor: [12, 41], // Point d'ancrage de l'icône
     popupAnchor: [1, -34], // Point d'ancrage du popup
-    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png", // Ombre
+    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png", 
     shadowSize: [41, 41],
 });
 
 const InteractiveMap = ({ activities }) => {
     useEffect(() => {
-        // Initialiser la carte
+        // Initialisation de la carte
         const map = L.map("map").setView([48.111, -1.680], 12); // Par défaut centré sur Rennes
 
-        // Ajouter un fond de carte (OpenStreetMap)
+        // Ajout d'un fond de carte (OpenStreetMap)
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(map);
 
-        // Ajouter les marqueurs pour chaque activité
+        // Ajout des marqueurs pour chaque activité
         activities.forEach((activity) => {
             if (activity.latitude && activity.longitude) {
-                // Ajouter un marqueur avec une icône personnalisée
+                // Ajout d'un marqueur avec une icône personnalisée
                 const marker = L.marker([activity.latitude, activity.longitude], { icon: customIcon }).addTo(map);
 
-                // Ajouter une popup avec des informations
+                // Ajout d'une popup avec des informations
                 marker.bindPopup(`
                     <div style="font-size: 14px;">
                         <strong>${activity.nom_organisme}</strong><br/>

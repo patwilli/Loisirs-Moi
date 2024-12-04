@@ -7,42 +7,50 @@ const ActivitiesList = ({ activities }) => {
     }
 
     return (
-        <div style={styles.cardContainer}>
-            {activities.map((activity) => {
-                return (
-                    <div key={activity.id} style={styles.card}>
-                        <h3 style={styles.activityName}>{activity.nom_organisme}</h3>
-                        <p style={styles.activityDetails}>
-                            {activity.activite || "Type d'activité non renseigné"}
-                        </p>
-                        <p style={styles.activityDetails}>
-                            {activity.niveau_de_l_activite || "Niveau non renseigné"}
-                        </p>
-                        <p style={styles.activityDetails}>
-                            {activity.tarif || "Tarifs non renseignés"}
-                        </p>
-                        <Link
-                            to={`/loisirs/details/${activity.id}`}
-                            style={styles.moreInfoLink}
-                        >
-                            En savoir plus
-                        </Link>
-
-                    </div>
-                );
-            })}
+        <div>
+            <h3 style={styles.title}>Parcourez l'ensemble des activités disponibles et trouvez celle qui vous correspond !</h3>
+            <div style={styles.cardContainer}>
+                {activities.map((activity) => {
+                    return (
+                        <div key={activity.id} style={styles.card}>
+                            <h3 style={styles.activityName}>{activity.nom_organisme}</h3>
+                            <p style={styles.activityDetails}>
+                                {activity.activite || "Type d'activité non renseigné"}
+                            </p>
+                            <p style={styles.activityDetails}>
+                                {activity.niveau_de_l_activite || "Niveau non renseigné"}
+                            </p>
+                            <p style={styles.activityDetails}>
+                                {activity.tarif || "Tarifs non renseignés"}
+                            </p>
+                            <Link
+                                to={`/loisirs/details/${activity.id}`}
+                                style={styles.moreInfoLink}
+                            >
+                                En savoir plus
+                            </Link>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
-
     );
 };
+
 const styles = {
+    title: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        color: "#333",
+        margin: "20px 0",
+    },
     cardContainer: {
         display: "flex",
         flexWrap: "wrap",
         gap: "20px",
         justifyContent: "center",
         textAlign: "center",
-        padding: "40px 20px"
+        padding: "40px 20px",
     },
     card: {
         width: "250px",

@@ -3,13 +3,13 @@ const axios = require("axios");
 const cors = require("cors");
 require("dotenv").config();
 const bodyParser = require('body-parser');
-const activitesRoutes = require('./routes/activites'); // Import des routes
+const activitesRoutes = require('./routes/activites'); 
 
 const app = express();
 
 // Middleware CORS
 app.use(cors({
-    origin: 'http://localhost:3000', // Autoriser uniquement ce domaine
+    origin: 'http://localhost:3000', // Autoriser uniquement 3000
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Méthodes autorisées
     allowedHeaders: ['Content-Type', 'Authorization'], // En-têtes autorisés
 }));
