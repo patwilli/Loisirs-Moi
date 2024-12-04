@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ActivitiesList = ({ activities }) => {
     if (!activities || activities.length === 0) {
@@ -20,12 +21,13 @@ const ActivitiesList = ({ activities }) => {
                         <p style={styles.activityDetails}>
                             {activity.tarif || "Tarifs non renseignés"}
                         </p>
-                        <a
-                            href={`http://localhost:5000/api/activites/`+activity.id}
+                        <Link
+                            to={`/loisirs/details/${activity.id}`}
                             style={styles.moreInfoLink}
                         >
                             En savoir plus
-                        </a>
+                        </Link>
+
                     </div>
                 );
             })}

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 const Search = () => {
     const containerStyle = {
@@ -289,9 +291,12 @@ const Search = () => {
                                             <p><strong>Niveau:</strong> {result.niveau}</p>
                                             <p><strong>Age:</strong> {result.age}</p>
                                         </div>
-                                        <a href={`http://localhost:5000/api/activities/${result.id}`}>
+                                        <Link
+                                            to={`/loisirs/details/${result.id}`}
+                                        >
                                             En savoir plus
-                                        </a>
+                                        </Link>
+
                                     </div>
                                 ))}
                             </div>
