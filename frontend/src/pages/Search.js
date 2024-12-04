@@ -56,6 +56,10 @@ const Search = () => {
         color: "#333",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
         transition: "border-color 0.3s",
+        maxWidth: "400px",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
     };
 
     const buttonStyle = {
@@ -88,10 +92,6 @@ const Search = () => {
         transition: "transform 0.3s ease-in-out",
     };
     
-    const cardHoverStyle = {
-        transform: "translateY(-10px)",
-    };
-    
     const cardContentStyle = {
         padding: "10px",
     };
@@ -99,15 +99,6 @@ const Search = () => {
     const cardContentTitleStyle = {
         fontSize: "1.2em",
         marginBottom: "10px",
-    };
-    
-    const cardContentParagraphStyle = {
-        fontSize: "1em",
-        margin: "5px 0",
-    };
-    
-    const buttonHoverStyle = {
-        backgroundColor: "#e6a03d",
     };
 
     // State pour les données récupérées

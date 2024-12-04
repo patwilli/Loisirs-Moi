@@ -29,9 +29,9 @@ const geocodeAddress = async (address) => {
 
 // Fonction pour récupérer et insérer les données, puis géocoder les adresses
 const fetchDataAndGeocode = async () => {
-  const limit = 10; // Nombre d'enregistrements par page
+  const limit = 50; // Nombre d'enregistrements par page
   let offset = 0; // Initialiser l'offset
-  const totalCount = 50; // Total de données à récupérer
+  const totalCount = 1000; // Total de données à récupérer
 
   while (offset < totalCount) {
     try {
