@@ -34,9 +34,7 @@ const Header = () => {
         textDecoration: "none",
         color: "white",
         fontSize: "1.2rem",
-        padding: "5px 10px",
-        borderRadius: "5px",
-        transition: "background-color 0.3s, color 0.3s",
+        fontWeigth: "bold"
     };
 
     const linkHoverStyle = {

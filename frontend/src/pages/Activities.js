@@ -9,10 +9,10 @@ const Home = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:5000/api/loisirs")
+            .get("http://localhost:5000/api/activites")
             .then((response) => {
                 console.log(response.data); 
-                setActivities(response.data.results || []);
+                setActivities(response.data || []);
                 setLoading(false);
             })
             .catch((err) => {

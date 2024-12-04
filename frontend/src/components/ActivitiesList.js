@@ -8,11 +8,8 @@ const ActivitiesList = ({ activities }) => {
     return (
         <div style={styles.cardContainer}>
             {activities.map((activity) => {
-                // Créer un identifiant unique basé sur les données disponibles
-                const uniqueId = `${activity.nom_organisme}-${activity.code_postal}`;
-
                 return (
-                    <div key={uniqueId} style={styles.card}>
+                    <div key={activity.id} style={styles.card}>
                         <h3 style={styles.activityName}>{activity.nom_organisme}</h3>
                         <p style={styles.activityDetails}>
                             {activity.activite || "Type d'activité non renseigné"}
@@ -24,7 +21,7 @@ const ActivitiesList = ({ activities }) => {
                             {activity.tarif || "Tarifs non renseignés"}
                         </p>
                         <a
-                            href={`/activities/${encodeURIComponent(uniqueId)}`}
+                            href={`http://localhost:5000/api/activites/`+activity.id}
                             style={styles.moreInfoLink}
                         >
                             En savoir plus
@@ -33,15 +30,17 @@ const ActivitiesList = ({ activities }) => {
                 );
             })}
         </div>
+
     );
 };
-
 const styles = {
     cardContainer: {
         display: "flex",
         flexWrap: "wrap",
         gap: "20px",
         justifyContent: "center",
+        textAlign: "center",
+        padding: "40px 20px"
     },
     card: {
         width: "250px",

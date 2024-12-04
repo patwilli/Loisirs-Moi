@@ -60,74 +60,98 @@ router.get('/search', async (req, res) => {
 //Route pour les thématiques (activite)
 
 router.get('/options/activites', async (req, res) => {
-    try {
-      const activites = await Activite.findAll({
-        attributes: ['activite'],
-        group: ['activite'], // Évite les doublons
-        where: { activite: { [Op.ne]: null } }, // Ignore les champs `null`
-      });
-  
-      const activiteOptions = activites.map(a => a.activite);
-      res.status(200).json(activiteOptions);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des thématiques :', error);
-      res.status(500).json({ message: 'Erreur interne du serveur.' });
-    }
-  });
+  try {
+    const activites = await Activite.findAll({
+      attributes: ['activite'],
+      group: ['activite'],
+      where: { activite: { [Op.ne]: null } },
+    });
+
+    // Transformation des résultats pour inclure 'id' et 'name'
+    const activiteOptions = activites.map((a, index) => ({
+      id: index + 1,  // ou un autre identifiant unique si nécessaire
+      name: a.activite
+    }));
+
+    res.status(200).json(activiteOptions);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des thématiques :', error);
+    res.status(500).json({ message: 'Erreur interne du serveur.' });
+  }
+});
+
 
   
 //Route pour les communes (commune)
 router.get('/options/communes', async (req, res) => {
-    try {
-      const communes = await Activite.findAll({
-        attributes: ['commune'],
-        group: ['commune'],
-        where: { commune: { [Op.ne]: null } },
-      });
-  
-      const communeOptions = communes.map(c => c.commune);
-      res.status(200).json(communeOptions);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des communes :', error);
-      res.status(500).json({ message: 'Erreur interne du serveur.' });
-    }
-  });
+  try {
+    const communes = await Activite.findAll({
+      attributes: ['commune'],
+      group: ['commune'],
+      where: { commune: { [Op.ne]: null } },
+    });
+
+    // Transformation des résultats pour inclure 'id' et 'name'
+    const communeOptions = communes.map((c, index) => ({
+      id: index + 1,  // ou un autre identifiant unique si nécessaire
+      name: c.commune
+    }));
+
+    res.status(200).json(communeOptions);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des communes :', error);
+    res.status(500).json({ message: 'Erreur interne du serveur.' });
+  }
+});
+
   
 
 //Route pour les niveaux (niveau)
 router.get('/options/niveaux', async (req, res) => {
-    try {
-      const niveaux = await Activite.findAll({
-        attributes: ['niveau'],
-        group: ['niveau'],
-        where: { niveau: { [Op.ne]: null } },
-      });
-  
-      const niveauOptions = niveaux.map(n => n.niveau);
-      res.status(200).json(niveauOptions);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des niveaux :', error);
-      res.status(500).json({ message: 'Erreur interne du serveur.' });
-    }
-  });
+  try {
+    const niveaux = await Activite.findAll({
+      attributes: ['niveau'],
+      group: ['niveau'],
+      where: { niveau: { [Op.ne]: null } },
+    });
+
+    // Transformation des résultats pour inclure 'id' et 'name'
+    const niveauOptions = niveaux.map((n, index) => ({
+      id: index + 1,  // ou un autre identifiant unique si nécessaire
+      name: n.niveau
+    }));
+
+    res.status(200).json(niveauOptions);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des niveaux :', error);
+    res.status(500).json({ message: 'Erreur interne du serveur.' });
+  }
+});
+
   
 
 //Route pour les âges (age)
 router.get('/options/ages', async (req, res) => {
-    try {
-      const ages = await Activite.findAll({
-        attributes: ['age'],
-        group: ['age'],
-        where: { age: { [Op.ne]: null } },
-      });
-  
-      const ageOptions = ages.map(a => a.age);
-      res.status(200).json(ageOptions);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des âges :', error);
-      res.status(500).json({ message: 'Erreur interne du serveur.' });
-    }
-  });
+  try {
+    const ages = await Activite.findAll({
+      attributes: ['age'],
+      group: ['age'],
+      where: { age: { [Op.ne]: null } },
+    });
+
+    // Transformation des résultats pour inclure 'id' et 'name'
+    const ageOptions = ages.map((a, index) => ({
+      id: index + 1,  // ou un autre identifiant unique si nécessaire
+      name: a.age
+    }));
+
+    res.status(200).json(ageOptions);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des âges :', error);
+    res.status(500).json({ message: 'Erreur interne du serveur.' });
+  }
+});
+
   
 
 module.exports = router;

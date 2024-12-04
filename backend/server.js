@@ -7,6 +7,13 @@ const activitesRoutes = require('./routes/activites'); // Import des routes
 
 const app = express();
 
+// Middleware CORS
+app.use(cors({
+    origin: 'http://localhost:3000', // Autoriser uniquement ce domaine
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Méthodes autorisées
+    allowedHeaders: ['Content-Type', 'Authorization'], // En-têtes autorisés
+}));
+
 // Middleware pour parser le JSON
 app.use(bodyParser.json());
 

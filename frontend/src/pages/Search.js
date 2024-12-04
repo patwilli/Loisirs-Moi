@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const Search = () => {
+    // Les styles restent inchangés
     const containerStyle = {
         maxWidth: "900px",
         margin: "50px auto",
@@ -55,10 +57,6 @@ const Search = () => {
         transition: "border-color 0.3s",
     };
 
-    const selectHoverStyle = {
-        borderColor: "#ffbd59",
-    };
-
     const buttonStyle = {
         padding: "15px",
         fontSize: "1.2rem",
@@ -72,32 +70,46 @@ const Search = () => {
         marginTop: "20px",
     };
 
-    const buttonHoverStyle = {
-        backgroundColor: "#1769aa",
-    };
+    // State pour les données récupérées
+    const [options, setOptions] = useState({
+        activites: [],
+        communes: [],
+        niveaux: [],
+        ages: [],
+    });
 
     const [formData, setFormData] = useState({
         thematique: "",
         activite: "",
         commune: "",
-        ageOrHandicap: "",
+        niveau: "",
+        age: "",
     });
 
-    const handleMouseEnter = (e) => {
-        if (e.target.tagName === "BUTTON") {
-            Object.assign(e.target.style, buttonHoverStyle);
-        } else {
-            Object.assign(e.target.style, selectHoverStyle);
-        }
-    };
+    // Charger les données depuis l'API
+    useEffect(() => {
+        const fetchOptions = async () => {
+            try {
+                const [activitesRes, communesRes, niveauxRes, agesRes] = await Promise.all([
+                    axios.get("http://localhost:5000/api/options/activites"),
+                    axios.get("http://localhost:5000/api/options/communes"),
+                    axios.get("http://localhost:5000/api/options/niveaux"),
+                    axios.get("http://localhost:5000/api/options/ages"),
+                ]);
 
-    const handleMouseLeave = (e) => {
-        if (e.target.tagName === "BUTTON") {
-            Object.assign(e.target.style, buttonStyle);
-        } else {
-            Object.assign(e.target.style, selectStyle);
-        }
-    };
+                setOptions({
+                    activites: activitesRes.data,
+                    communes: communesRes.data,
+                    niveaux: niveauxRes.data,
+                    ages: agesRes.data,
+                });
+            } catch (error) {
+                console.error("Erreur lors du chargement des options :", error);
+            }
+        };
+
+        fetchOptions();
+    }, []);
 
     const handleChange = (e) => {
         setFormData({
@@ -115,50 +127,27 @@ const Search = () => {
         <div style={containerStyle}>
             <h1 style={titleStyle}>Rechercher une Activité</h1>
             <form style={formStyle} onSubmit={handleSubmit}>
-                {/* Première ligne : Thématique et Activités */}
+                {/* Première ligne : Type d'activités et commune */}
                 <div style={rowStyle}>
                     <div style={fieldContainerStyle}>
                         <label style={labelStyle} htmlFor="thematique">
-                            Thématique :
+                            Type activités :
                         </label>
                         <select
                             id="thematique"
                             name="thematique"
                             style={selectStyle}
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
                             value={formData.thematique}
                             onChange={handleChange}
                         >
                             <option value="">Sélectionnez une thématique</option>
-                            <option value="sport">Sport</option>
-                            <option value="art">Art</option>
-                            <option value="nature">Nature</option>
+                            {options.activites.map((activite) => (
+                                <option key={activite.id} value={activite.id}>
+                                    {activite.name}
+                                </option>
+                            ))}
                         </select>
                     </div>
-                    <div style={fieldContainerStyle}>
-                        <label style={labelStyle} htmlFor="activite">
-                            Activité :
-                        </label>
-                        <select
-                            id="activite"
-                            name="activite"
-                            style={selectStyle}
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
-                            value={formData.activite}
-                            onChange={handleChange}
-                        >
-                            <option value="">Sélectionnez une activité</option>
-                            <option value="randonnée">Randonnée</option>
-                            <option value="peinture">Peinture</option>
-                            <option value="escalade">Escalade</option>
-                        </select>
-                    </div>
-                </div>
-
-                {/* Deuxième ligne : Commune et Par âge/handicap */}
-                <div style={rowStyle}>
                     <div style={fieldContainerStyle}>
                         <label style={labelStyle} htmlFor="commune">
                             Commune :
@@ -167,46 +156,63 @@ const Search = () => {
                             id="commune"
                             name="commune"
                             style={selectStyle}
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
                             value={formData.commune}
                             onChange={handleChange}
                         >
                             <option value="">Sélectionnez une commune</option>
-                            <option value="paris">Paris</option>
-                            <option value="lyon">Lyon</option>
-                            <option value="marseille">Marseille</option>
+                            {options.communes.map((commune) => (
+                                <option key={commune.id} value={commune.id}>
+                                    {commune.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                {/* Deuxième ligne : Niveau et âge */}
+                <div style={rowStyle}>
+                    <div style={fieldContainerStyle}>
+                        <label style={labelStyle} htmlFor="niveau">
+                            Niveau :
+                        </label>
+                        <select
+                            id="niveau"
+                            name="niveau"
+                            style={selectStyle}
+                            value={formData.niveau}
+                            onChange={handleChange}
+                        >
+                            <option value="">Sélectionnez un niveau</option>
+                            {options.niveaux.map((niveau) => (
+                                <option key={niveau.id} value={niveau.id}>
+                                    {niveau.name}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <div style={fieldContainerStyle}>
-                        <label style={labelStyle} htmlFor="ageOrHandicap">
-                            Par âge / Handicap :
+                        <label style={labelStyle} htmlFor="age">
+                            Par âge :
                         </label>
                         <select
-                            id="ageOrHandicap"
-                            name="ageOrHandicap"
+                            id="age"
+                            name="age"
                             style={selectStyle}
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
-                            value={formData.ageOrHandicap}
+                            value={formData.age}
                             onChange={handleChange}
                         >
                             <option value="">Sélectionnez une option</option>
-                            <option value="enfant">Enfant</option>
-                            <option value="adulte">Adulte</option>
-                            <option value="senior">Senior</option>
-                            <option value="handicap">Handicap</option>
+                            {options.ages.map((age) => (
+                                <option key={age.id} value={age.id}>
+                                    {age.name}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 </div>
 
                 {/* Bouton de recherche */}
-                <button
-                    type="submit"
-                    style={buttonStyle}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                >
+                <button type="submit" style={buttonStyle}>
                     Rechercher
                 </button>
             </form>
