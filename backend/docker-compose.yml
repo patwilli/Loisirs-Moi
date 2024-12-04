@@ -1,9 +1,28 @@
-version: '3.8'
+version: "3.8"
 services:
-  backend:
-    build:
-      context: ./backend
-    ports:
-      - "5000:5000"
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
     environment:
-      - PORT=5000
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: loisirs
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    networks:
+      - loisirs-network
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8080:80"
+    networks:
+      - loisirs-network
+
+networks:
+  loisirs-network:
