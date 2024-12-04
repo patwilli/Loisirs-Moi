@@ -12,6 +12,7 @@ import Search from "./pages/Search";
 //Components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Favorites from "./pages/Favories";
 
 function App() {
     return (
@@ -24,7 +25,7 @@ function App() {
                     <Route path="/Loisirs" element={<Activities />} />
                     <Route path="loisirs/details/:id" element={<ActivityDetails />} />
                     <Route path="/Cartes-des-loisirs" element={<InteractiveMapPage />} />
-                    <Route path="/Mes-favoris" element={<About />} />
+                    <Route path="/Mes-favoris" element={<Favorites />} />
                     <Route path="/A-propos" element={<About />} />
                     <Route path="/Recherche" element={<Search />} />
                 </Routes>

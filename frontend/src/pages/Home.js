@@ -120,7 +120,7 @@ const Home = () => {
 
             {/* Bouton vers les activités */}
             <Link
-                to="/activities"
+                to="/Loisirs"
                 style={buttonStyle}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
