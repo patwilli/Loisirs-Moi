@@ -69,6 +69,45 @@ const Search = () => {
         marginTop: "20px",
     };
 
+    const cardContainerStyle = {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "20px",
+        justifyContent: "space-around",
+    };
+    
+    const cardStyle = {
+        backgroundColor: "#f9f9f9",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        width: "250px",
+        padding: "20px",
+        textAlign: "center",
+        transition: "transform 0.3s ease-in-out",
+    };
+    
+    const cardHoverStyle = {
+        transform: "translateY(-10px)",
+    };
+    
+    const cardContentStyle = {
+        padding: "10px",
+    };
+
+    const cardContentTitleStyle = {
+        fontSize: "1.2em",
+        marginBottom: "10px",
+    };
+    
+    const cardContentParagraphStyle = {
+        fontSize: "1em",
+        margin: "5px 0",
+    };
+    
+    const buttonHoverStyle = {
+        backgroundColor: "#e6a03d",
+    };
+
     // State pour les données récupérées
     const [options, setOptions] = useState({
         activites: [],
@@ -240,14 +279,22 @@ const Search = () => {
                         <p>Aucune activité trouvée avec ces critères.</p>
                     ) : (
                         <div>
-                            <h2>Résultats de la recherche</h2>
-                            <ul>
+                            <h2 style={cardContentTitleStyle}>Résultats de la recherche</h2>
+                            <div style={cardContainerStyle}>
                                 {results.map((result) => (
-                                    <li key={result.id}>
-                                        {result.activite} - {result.commune} - {result.niveau} - {result.age}
-                                    </li>
+                                    <div style={cardStyle} key={result.id}>
+                                        <div style={cardContentStyle}>
+                                            <h3>{result.nom_organisme}</h3>
+                                            <p><strong>Type:</strong> {result.activite}</p>
+                                            <p><strong>Niveau:</strong> {result.niveau}</p>
+                                            <p><strong>Age:</strong> {result.age}</p>
+                                        </div>
+                                        <a href={`http://localhost:5000/api/activities/${result.id}`}>
+                                            En savoir plus
+                                        </a>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
                         </div>
                     )}
                 </div>
