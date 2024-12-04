@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Search = () => {
-    // Les styles restent inchangés
     const containerStyle = {
         maxWidth: "900px",
         margin: "50px auto",
@@ -86,6 +85,9 @@ const Search = () => {
         age: "",
     });
 
+    const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     // Charger les données depuis l'API
     useEffect(() => {
         const fetchOptions = async () => {
@@ -118,16 +120,31 @@ const Search = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("Recherche effectuée avec : " + JSON.stringify(formData, null, 2));
+        setLoading(true);
+        try {
+            const response = await axios.get('http://localhost:5000/api/search', {
+                params: {
+                    activite: formData.activite,
+                    commune: formData.commune,
+                    niveau: formData.niveau,
+                    age: formData.age
+                }
+            });
+            
+            setResults(response.data);
+        } catch (error) {
+            console.error("Erreur lors de la recherche :", error);
+            setResults([]);
+        }
+        setLoading(false);
     };
 
     return (
         <div style={containerStyle}>
             <h1 style={titleStyle}>Rechercher une Activité</h1>
             <form style={formStyle} onSubmit={handleSubmit}>
-                {/* Première ligne : Type d'activités et commune */}
                 <div style={rowStyle}>
                     <div style={fieldContainerStyle}>
                         <label style={labelStyle} htmlFor="thematique">
@@ -142,7 +159,7 @@ const Search = () => {
                         >
                             <option value="">Sélectionnez une thématique</option>
                             {options.activites.map((activite) => (
-                                <option key={activite.id} value={activite.id}>
+                                <option key={activite.id} value={activite.name}>
                                     {activite.name}
                                 </option>
                             ))}
@@ -161,7 +178,7 @@ const Search = () => {
                         >
                             <option value="">Sélectionnez une commune</option>
                             {options.communes.map((commune) => (
-                                <option key={commune.id} value={commune.id}>
+                                <option key={commune.id} value={commune.name}>
                                     {commune.name}
                                 </option>
                             ))}
@@ -169,7 +186,6 @@ const Search = () => {
                     </div>
                 </div>
 
-                {/* Deuxième ligne : Niveau et âge */}
                 <div style={rowStyle}>
                     <div style={fieldContainerStyle}>
                         <label style={labelStyle} htmlFor="niveau">
@@ -184,7 +200,7 @@ const Search = () => {
                         >
                             <option value="">Sélectionnez un niveau</option>
                             {options.niveaux.map((niveau) => (
-                                <option key={niveau.id} value={niveau.id}>
+                                <option key={niveau.id} value={niveau.name}>
                                     {niveau.name}
                                 </option>
                             ))}
@@ -203,7 +219,7 @@ const Search = () => {
                         >
                             <option value="">Sélectionnez une option</option>
                             {options.ages.map((age) => (
-                                <option key={age.id} value={age.id}>
+                                <option key={age.id} value={age.name}>
                                     {age.name}
                                 </option>
                             ))}
@@ -211,11 +227,31 @@ const Search = () => {
                     </div>
                 </div>
 
-                {/* Bouton de recherche */}
                 <button type="submit" style={buttonStyle}>
                     Rechercher
                 </button>
             </form>
+
+            {loading ? (
+                <p>Chargement des résultats...</p>
+            ) : (
+                <div>
+                    {results.length === 0 ? (
+                        <p>Aucune activité trouvée avec ces critères.</p>
+                    ) : (
+                        <div>
+                            <h2>Résultats de la recherche</h2>
+                            <ul>
+                                {results.map((result) => (
+                                    <li key={result.id}>
+                                        {result.activite} - {result.commune} - {result.niveau} - {result.age}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };
