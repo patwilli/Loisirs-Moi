@@ -24,10 +24,10 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/Accueil" element={<Home />} />
                     <Route path="/Loisirs" element={<Activities />} />
-                    <Route path="loisirs/details/:id" element={<ActivityDetails />} />
-                    <Route path="/Cartes-des-loisirs" element={<InteractiveMapPage />} />
-                    <Route path="/Mes-favoris" element={<Favorites />} />
-                    <Route path="/A-propos" element={<About />} />
+                    <Route path="/Loisirs/details/:id" element={<ActivityDetails />} />
+                    <Route path="/Carte" element={<InteractiveMapPage />} />
+                    <Route path="/Mes favoris" element={<Favorites />} />
+                    <Route path="/A propos" element={<About />} />
                     <Route path="/Recherche" element={<Search />} />
                 </Routes>
                 <Footer />
