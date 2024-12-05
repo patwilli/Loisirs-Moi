@@ -30,10 +30,22 @@ services:
       context: ./backend
     ports:
       - "5000:5000"
-    volumes:
-      - ./backend:/app
     depends_on:
       - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: loisirs
+    volumes:
+      - ./backend:/app
+    command: >
+      sh -c "
+      ./wait-for-it.sh mysql:3306 -- 
+      npx sequelize-cli db:migrate && 
+      node ./bd_script.js && 
+      node server.js
+      "
     networks:
       - loisirs-network
 
