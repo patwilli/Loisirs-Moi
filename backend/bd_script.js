@@ -31,7 +31,7 @@ const geocodeAddress = async (address) => {
 const fetchDataAndGeocode = async () => {
   const limit = 50; // Nombre d'enregistrements par page
   let offset = 0; // Initialiser l'offset
-  const totalCount = 500; // Total de données à récupérer
+  const totalCount = 200; // Total de données à récupérer
 
   while (offset < totalCount) {
     try {
