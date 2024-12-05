@@ -19,7 +19,6 @@
 
 ### Frontend
 - **Framework** : React
-- **Styling** : CSS/Bootstrap
 
 ### Backend
 - **Serveur** : Node.js (Express)
@@ -35,7 +34,6 @@
 
 ## 🚀 Installation et utilisation
 
-**Cloner le dépôt** :
    ```bash
    git clone https://github.com/patwilli/Loisirs-Moi.git
    cd loisirs-moi
