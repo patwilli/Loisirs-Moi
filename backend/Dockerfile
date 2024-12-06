@@ -1,4 +1,4 @@
-# Utilisation de l'image Node.js
+# Utilisation de l'image Node.js (LTS)
 FROM node:16
 
 # Définir le répertoire de travail dans le conteneur
@@ -8,7 +8,9 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Installer les dépendances
-RUN npm install
+RUN npm install --production && \
+    npm install sequelize-cli --save-dev && \
+    npm cache clean --force
 
 # Copier le reste des fichiers dans le conteneur
 COPY . .
