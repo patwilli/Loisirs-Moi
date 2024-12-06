@@ -8,12 +8,10 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Installer les dépendances
-RUN npm install --production && \
-    npm install sequelize-cli --save-dev && \
-    npm cache clean --force
+RUN npm install --production
 
 # Copier le reste des fichiers dans le conteneur
-COPY . .
+COPY . ./
 
 # Copiez le script wait-for-it.sh dans le répertoire backend
 COPY wait-for-it.sh /app/
