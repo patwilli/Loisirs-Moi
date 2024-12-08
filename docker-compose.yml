@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   mysql:
     image: mysql:8.0
@@ -30,22 +29,8 @@ services:
       context: ./backend
     ports:
       - "5000:5000"
-    depends_on:
-      - mysql
-    environment:
-      DB_HOST: mysql
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_NAME: loisirs
     volumes:
       - ./backend:/app
-    command: >
-      sh -c "
-      ./wait-for-it.sh mysql:3306 -- 
-      npx sequelize-cli db:migrate && 
-      node ./bd_script.js && 
-      node server.js
-      "
     networks:
       - loisirs-network
 
@@ -56,9 +41,6 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/app
-      - /app/node_modules
-    depends_on:
-      - backend
     networks:
       - loisirs-network
 
