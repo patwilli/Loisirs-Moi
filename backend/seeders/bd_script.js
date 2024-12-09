@@ -78,8 +78,7 @@ module.exports = {
             paiements_acceptes: record.paiements_acceptes || null,
             age: record.age || null,
             niveau: record.niveau || null,
-            commune_ou_quartier_de_lactivite:
-              record.commune_ou_quartier_de_lactivite || null,
+            commune_ou_quartier_de_lactivite: record.commune_ou_quartier_de_lactivite || null,
             createdAt: new Date(),
             updatedAt: new Date(),
           }));
