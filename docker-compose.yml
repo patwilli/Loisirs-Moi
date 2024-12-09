@@ -34,9 +34,10 @@ services:
       - ./backend:/app
       - /app/node_modules
     networks:
-      - loisirs-network 
+      - loisirs-network
     depends_on:
       - mysql
+    restart: on-failure
 
   frontend:
     build:
