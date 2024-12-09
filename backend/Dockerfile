@@ -7,7 +7,6 @@ COPY migrate.sh ./
 RUN chmod +x migrate.sh
 COPY wait-for-it.sh .
 RUN chmod +x wait-for-it.sh
-#RUN npm run migrate
 
 EXPOSE 5000
 CMD ["./wait-for-it.sh", "mysql:3306", "--", "sh", "./migrate.sh"]
