@@ -33,29 +33,8 @@
 ---
 
 ## 🚀 Installation et utilisation
-
-1. **Démarrer les conteneurs Docker :**
    ```bash
    docker-compose up -d
    ```
 
-2. **Initialiser le backend :**
-   - Ouvre un autre terminal.
-   - Exécute les commandes suivantes :
-     ```bash
-     cd backend
-     npm install
-     npx sequelize-cli db:migrate
-     node bd_script.js
-     node server.js
-     ```
-
-3. **Initialiser le frontend :**
-   - Ouvre un autre terminal.
-   - Exécute les commandes suivantes :
-     ```bash
-     cd frontend
-     npm install
-     npm start
-     ```
 
