@@ -1,6 +1,6 @@
 const express = require("express");
 const { Op } = require("sequelize");
-const { Activite } = require("../models/Activite");
+const { Activite } = require("../models"); 
 
 const router = express.Router();
 
@@ -11,22 +11,24 @@ router.get("/activites", async (req, res) => {
     res.status(200).json(activites);
   } catch (error) {
     console.error("Erreur lors de la récupération des activités :", error);
-    res.status(500).json({ error: "Erreur serveur" });
+    res.status(500).json({ error: "Erreur interne du serveur." });
   }
 });
 
 // Récupérer une activité par ID
 router.get("/activites/:id", async (req, res) => {
-  const { id } = req.params;
   try {
+    const { id } = req.params;
     const activite = await Activite.findByPk(id);
+
     if (!activite) {
-      return res.status(404).json({ error: "Activité non trouvée" });
+      return res.status(404).json({ error: "Activité non trouvée." });
     }
+
     res.status(200).json(activite);
   } catch (error) {
     console.error("Erreur lors de la récupération de l'activité :", error);
-    res.status(500).json({ error: "Erreur serveur" });
+    res.status(500).json({ error: "Erreur interne du serveur." });
   }
 });
 
@@ -36,16 +38,14 @@ router.get("/search", async (req, res) => {
     const { activite, commune, niveau, age } = req.query;
 
     const where = {};
-    if (activite) where.activite = activite;
-    if (commune) where.commune = commune;
-    if (niveau) where.niveau = niveau;
+    if (activite) where.activite = { [Op.like]: `%${activite}%` };
+    if (commune) where.commune = { [Op.like]: `%${commune}%` };
+    if (niveau) where.niveau = { [Op.like]: `%${niveau}%` };
     if (age) where.age = age;
 
-    // Effectuer la requête
     const activites = await Activite.findAll({ where });
 
-    // Retourner les résultats
-    if (activites.length === 0) {
+    if (!activites.length) {
       return res
         .status(404)
         .json({ message: "Aucune activité trouvée avec ces critères." });
@@ -54,92 +54,41 @@ router.get("/search", async (req, res) => {
     res.status(200).json(activites);
   } catch (error) {
     console.error("Erreur lors de la recherche des activités :", error);
-    res.status(500).json({ message: "Erreur interne du serveur." });
+    res.status(500).json({ error: "Erreur interne du serveur." });
   }
 });
 
-//Route pour les thématiques (activite)
-router.get("/options/activites", async (req, res) => {
+// Obtenir les options pour une colonne spécifique
+const getOptions = async (column, res) => {
   try {
-    const activites = await Activite.findAll({
-      attributes: ["activite"],
-      group: ["activite"],
-      where: { activite: { [Op.ne]: null } },
+    const results = await Activite.findAll({
+      attributes: [[column, "name"]],
+      group: [column],
+      where: { [column]: { [Op.ne]: null } },
     });
 
-    const activiteOptions = activites.map((a, index) => ({
+    const options = results.map((result, index) => ({
       id: index + 1,
-      name: a.activite,
+      name: result.name,
     }));
 
-    res.status(200).json(activiteOptions);
+    res.status(200).json(options);
   } catch (error) {
-    console.error("Erreur lors de la récupération des thématiques :", error);
+    console.error(`Erreur lors de la récupération des options pour ${column} :`, error);
     res.status(500).json({ message: "Erreur interne du serveur." });
   }
-});
+};
 
-//Route pour les communes (commune)
-router.get("/options/communes", async (req, res) => {
-  try {
-    const communes = await Activite.findAll({
-      attributes: ["commune"],
-      group: ["commune"],
-      where: { commune: { [Op.ne]: null } },
-    });
+// Route générique pour les options
+router.get("/options/:column", async (req, res) => {
+  const { column } = req.params;
+  const validColumns = ["activite", "commune", "niveau", "age"];
 
-    const communeOptions = communes.map((c, index) => ({
-      id: index + 1,
-      name: c.commune,
-    }));
-
-    res.status(200).json(communeOptions);
-  } catch (error) {
-    console.error("Erreur lors de la récupération des communes :", error);
-    res.status(500).json({ message: "Erreur interne du serveur." });
+  if (!validColumns.includes(column)) {
+    return res.status(400).json({ error: "Colonne invalide." });
   }
-});
 
-//Route pour les niveaux (niveau)
-router.get("/options/niveaux", async (req, res) => {
-  try {
-    const niveaux = await Activite.findAll({
-      attributes: ["niveau"],
-      group: ["niveau"],
-      where: { niveau: { [Op.ne]: null } },
-    });
-
-    const niveauOptions = niveaux.map((n, index) => ({
-      id: index + 1,
-      name: n.niveau,
-    }));
-
-    res.status(200).json(niveauOptions);
-  } catch (error) {
-    console.error("Erreur lors de la récupération des niveaux :", error);
-    res.status(500).json({ message: "Erreur interne du serveur." });
-  }
-});
-
-//Route pour les âges (age)
-router.get("/options/ages", async (req, res) => {
-  try {
-    const ages = await Activite.findAll({
-      attributes: ["age"],
-      group: ["age"],
-      where: { age: { [Op.ne]: null } },
-    });
-
-    const ageOptions = ages.map((a, index) => ({
-      id: index + 1,
-      name: a.age,
-    }));
-
-    res.status(200).json(ageOptions);
-  } catch (error) {
-    console.error("Erreur lors de la récupération des âges :", error);
-    res.status(500).json({ message: "Erreur interne du serveur." });
-  }
+  await getOptions(column, res);
 });
 
 module.exports = router;
